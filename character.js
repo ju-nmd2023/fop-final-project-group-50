@@ -67,6 +67,6 @@ class Character {
       this.character.y,
       this.character.x,
       this.character.y + 20
-    ); // V-shape for neck
+    );
   }
 }
