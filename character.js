@@ -1,62 +1,72 @@
-function setup() {
-  createCanvas(400, 400);
-  background(255);
+class Character {
+  constructor(character) {
+    this.character = character; // Store the character object
+  }
 
-  // Body
-  fill(0, 0, 255); // Blue color for jumpsuit
-  rect(170, 160, 60, 110); // Main body rectangle
+  draw() {
+    // Body
+    fill(0, 0, 255); // Blue color for jumpsuit
+    rect(this.character.x - 30, this.character.y, 60, 110); // Main body rectangle
 
-  // Head
-  fill(255, 204, 0); // Skin color
-  ellipse(200, 130, 60, 60); // Head
+    // Head
+    fill(255, 204, 0); // Skin color
+    ellipse(this.character.x, this.character.y - 30, 60, 60); // Head
 
-  // Hat
-  fill(0, 0, 255); // Blue color for hat
-  rect(170, 100, 60, 20); // Hat base
-  fill(255); // White for text
-  textSize(12);
-  textAlign(CENTER, CENTER);
-  text("JÖRGEN", 200, 110); // Name on the hat
+    // Hat
+    fill(0, 0, 255); // Blue color for hat
+    rect(this.character.x - 30, this.character.y - 60, 60, 20); // Hat base
+    fill(255); // White for text
+    textSize(12);
+    textAlign(CENTER, CENTER);
+    text("JÖRGEN", this.character.x, this.character.y - 50); // Name on the hat
 
-  // Eyes
-  fill(0); // Black for eyes
-  ellipse(190, 130, 10, 10); // Left eye
-  ellipse(210, 130, 10, 10); // Right eye
+    // Eyes
+    fill(0); // Black for eyes
+    ellipse(this.character.x - 10, this.character.y - 30, 10, 10); // Left eye
+    ellipse(this.character.x + 10, this.character.y - 30, 10, 10); // Right eye
 
-  // Tool
-  fill(192); // Gray color for wrench
-  rect(140, 230, 50, 7); // Wrench handle
-  ellipse(195, 233, 15, 15);
+    // Tool (Wrench)
+    fill(192); // Gray color for wrench
+    rect(this.character.x - 60, this.character.y + 70, 50, 7); // Wrench handle
+    ellipse(this.character.x - 5, this.character.y + 73, 15, 15);
 
-  // Arms
-  fill(255, 204, 0); // Skin color
-  rect(150, 165, 20, 70); // Left arm
-  rect(230, 165, 20, 70); // Right arm
+    // Arms
+    fill(255, 204, 0); // Skin color
+    rect(this.character.x - 50, this.character.y + 5, 20, 70); // Left arm
+    rect(this.character.x + 30, this.character.y + 5, 20, 70); // Right arm
 
-  // Hands
-  ellipse(160, 230, 25, 20); // Left hand (holding wrench)
-  ellipse(240, 230, 25, 20); // Right hand
+    // Hands
+    ellipse(this.character.x - 40, this.character.y + 70, 25, 20); // Left hand (holding wrench)
+    ellipse(this.character.x + 40, this.character.y + 70, 25, 20); // Right hand
 
-  // Legs
-  fill(0, 0, 255); // Blue color for pants
-  rect(170, 270, 25, 70); // Left leg
-  rect(205, 270, 25, 70); // Right leg
+    // Legs
+    fill(0, 0, 255); // Blue color for pants
+    rect(this.character.x - 30, this.character.y + 110, 25, 70); // Left leg
+    rect(this.character.x + 5, this.character.y + 110, 25, 70); // Right leg
 
-  // Shoes
-  fill(255); // White color for shoes
-  ellipse(180, 340, 30, 15); // Left shoe
-  ellipse(220, 340, 30, 15); // Right shoe
+    // Shoes
+    fill(255); // White color for shoes
+    ellipse(this.character.x - 20, this.character.y + 180, 30, 15); // Left shoe
+    ellipse(this.character.x + 20, this.character.y + 180, 30, 15); // Right shoe
 
-  // Belt
-  fill(0); // Black color for belt
-  rect(170, 250, 60, 10); // Belt
+    // Belt
+    fill(0); // Black color for belt
+    rect(this.character.x - 30, this.character.y + 90, 60, 10); // Belt
 
-  // Details on suit
-  fill(0); // Black color for patches
-  rect(185, 190, 10, 10); // Patch on left chest
-  rect(200, 220, 5, 5); // Patch on lower right
+    // Details on suit
+    fill(0); // Black color for patches
+    rect(this.character.x - 15, this.character.y + 30, 10, 10); // Patch on left chest
+    rect(this.character.x, this.character.y + 60, 5, 5); // Patch on lower right
 
-  // Neck opening (V-shape)
-  fill(255, 204, 0); // Skin color for neck
-  triangle(190, 160, 210, 160, 200, 180); // V-shape for neck
+    // Neck opening (V-shape)
+    fill(255, 204, 0); // Skin color for neck
+    triangle(
+      this.character.x - 10,
+      this.character.y,
+      this.character.x + 10,
+      this.character.y,
+      this.character.x,
+      this.character.y + 20
+    ); // V-shape for neck
+  }
 }
