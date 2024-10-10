@@ -8,6 +8,7 @@ let velocityY = 0; // Vertical velocity of the character
 let isJumping = false; // To track if the character is in the air
 let gameOver = false; // To track if the game is over
 let startScreen = true; // Game starts at the start screen
+let score = 0; // Starting score
 
 // Define arrays to store multiple obstacles
 let obstaclesLow = [];
@@ -73,9 +74,20 @@ function draw() {
     textSize(50);
     textAlign(CENTER);
     text("Game Over", width / 2, height / 2);
+    // Display the final score
+    textSize(28);
+    text("Final Score: " + int(score), width / 2, height / 2 + 60);
     noLoop(); // Stop the draw loop
     return; // Exit the function if the game is over
   }
+
+  // Increase score over time
+  score += 10 / frameRate(); // Increase score based on frame rate
+
+  // Display the score
+  fill(0);
+  textSize(32);
+  text("Score: " + int(score), 100, 50);
 
   // Draw the ground at the bottom of the screen
   fill(128, 128, 128); // Ground color
