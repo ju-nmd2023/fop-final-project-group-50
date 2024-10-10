@@ -6,6 +6,7 @@ let jumpForce = -15; // Upward force for the jump
 let gravity = 0.8; // Gravity pulling the character down
 let velocityY = 0; // Vertical velocity of the character
 let isJumping = false; // To track if the character is in the air
+let gameOver = false; // To track if the game is over
 
 // Define arrays to store multiple obstacles
 let obstaclesLow = [];
@@ -18,6 +19,8 @@ function setup() {
   character = {
     x: 200,
     y: 370,
+    width: 50, // Width of the character
+    height: 160, // Height of the character
   };
 
   // Define the ground level as the canvas height minus the height of the ground
@@ -27,7 +30,7 @@ function setup() {
   myCharacter = new Character(character);
 
   // Spawn multiple low obstacles with different positions and speeds
-  for (let i = 0; i < 3; i++) {
+  for (let i = 0; i < 2; i++) {
     obstaclesLow.push({
       x: 1420, // Start each obstacle off the screen
       y: 620, // Place at the same height as the character
@@ -51,6 +54,15 @@ function setup() {
 
 function draw() {
   background(255);
+
+  if (gameOver) {
+    fill(0);
+    textSize(50);
+    textAlign(CENTER);
+    text("Game Over", width / 2, height / 2);
+    noLoop(); // Stop the draw loop
+    return; // Exit the function if the game is over
+  }
 
   // Draw the ground at the bottom of the screen
   fill(128, 128, 128); // Ground color
@@ -88,12 +100,14 @@ function draw() {
   for (let i = 0; i < obstaclesLow.length; i++) {
     updateObstacle(obstaclesLow[i]);
     drawObstacle(obstaclesLow[i]);
+    checkCollision(character, obstaclesLow[i]); // Check for collision with low obstacles
   }
 
   // Update and draw all high obstacles
   for (let i = 0; i < obstaclesHigh.length; i++) {
     updateObstacle(obstaclesHigh[i]);
     drawObstacle(obstaclesHigh[i]);
+    checkCollision(character, obstaclesHigh[i]); // Check for collision with high obstacles
   }
 }
 
@@ -110,4 +124,16 @@ function updateObstacle(obstacle) {
 function drawObstacle(obstacle) {
   fill(255, 0, 0); // Color of the obstacle (red)
   rect(obstacle.x, obstacle.y, obstacle.width, obstacle.height);
+}
+
+// Function to check for collisions
+function checkCollision(character, obstacle) {
+  if (
+    character.x < obstacle.x + obstacle.width &&
+    character.x + character.width > obstacle.x &&
+    character.y < obstacle.y + obstacle.height &&
+    character.y + character.height > obstacle.y
+  ) {
+    gameOver = true; // Set gameOver to true if a collision is detected
+  }
 }
