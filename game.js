@@ -7,14 +7,9 @@ let gravity = 0.8; // Gravity pulling the character down
 let velocityY = 0; // Vertical velocity of the character
 let isJumping = false; // To track if the character is in the air
 
-// Define obstacle properties
-let obstacle = {
-  x: 1420, // Start from the right edge, off-screen
-  y: 620, // Place at the same height as the character
-  width: 50, // Width of the obstacle
-  height: 50, // Height of the obstacle
-  speed: 7, // Speed at which the obstacle moves left
-};
+// Define an array to store multiple obstacles
+let obstacles = [];
+
 function setup() {
   createCanvas(1420, 700);
 
@@ -29,6 +24,17 @@ function setup() {
 
   // Create an instance of the Character class, passing the character object
   myCharacter = new Character(character);
+
+  // Spawn multiple obstacles with different positions and speeds
+  for (let i = 0; i < 3; i++) {
+    obstacles.push({
+      x: 1420, // Start each obstacle off the screen
+      y: 620, // Place at the same height as the character
+      width: 50, // Width of the obstacle
+      height: 50, // Height of the obstacle
+      speed: random(5, 10, 15), // Random speed for each obstacle
+    });
+  }
 }
 
 function draw() {
@@ -66,13 +72,15 @@ function draw() {
   // Draw the character
   myCharacter.draw();
 
-  // Update and draw the obstacle
-  updateObstacle();
-  drawObstacle();
+  // Update and draw all obstacles
+  for (let i = 0; i < obstacles.length; i++) {
+    updateObstacle(obstacles[i]);
+    drawObstacle(obstacles[i]);
+  }
 }
 
-// Function to update obstacle's position
-function updateObstacle() {
+// Function to update obstacles position
+function updateObstacle(obstacle) {
   obstacle.x -= obstacle.speed; // Move the obstacle left
   // Reset the obstacle's position when it goes off-screen
   if (obstacle.x + obstacle.width < 0) {
@@ -80,8 +88,8 @@ function updateObstacle() {
   }
 }
 
-// Function to draw the obstacle
-function drawObstacle() {
+// Function to draw obstacles
+function drawObstacle(obstacle) {
   fill(255, 0, 0); // Color of the obstacle (red)
   rect(obstacle.x, obstacle.y, obstacle.width, obstacle.height);
 }
