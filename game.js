@@ -112,14 +112,14 @@ function draw() {
   // Update and draw all low obstacles
   for (let i = 0; i < obstaclesLow.length; i++) {
     updateObstacle(obstaclesLow[i]);
-    drawObstacle(obstaclesLow[i]);
+    drawSnake(obstaclesLow[i]); // Use the function to draw the snake
     checkCollision(character, obstaclesLow[i]); // Check for collision with low obstacles
   }
 
   // Update and draw all high obstacles
   for (let i = 0; i < obstaclesHigh.length; i++) {
     updateObstacle(obstaclesHigh[i]);
-    drawObstacle(obstaclesHigh[i]);
+    drawCactus(obstaclesHigh[i]); // Use the function to draw the cactus
     checkCollision(character, obstaclesHigh[i]); // Check for collision with high obstacles
   }
 }
@@ -133,10 +133,78 @@ function updateObstacle(obstacle) {
   }
 }
 
-// Function to draw obstacles
-function drawObstacle(obstacle) {
-  fill(255, 0, 0); // Color of the obstacle (red)
-  rect(obstacle.x, obstacle.y, obstacle.width, obstacle.height);
+// Function to draw a snake as a low obstacle
+function drawSnake(obstacle) {
+  push(); // Save drawing state
+  translate(obstacle.x, obstacle.y); // Move snake as low obstacle
+
+  // Head
+  fill(0, 255, 0); // Green for the head
+  rect(16, 10, 18, 6); // Head rectangle
+  rect(18, 6, 14, 6); // Upper head rectangle
+
+  // Body using rectangles
+  fill(0, 255, 0); // Green for the body
+  rect(14, 26, 22, 6); // Upper body
+  rect(12, 30, 26, 6); // Middle body
+  rect(10, 34, 30, 6); // Bottom body
+
+  // Tail
+  fill(0, 255, 0); // Green for the tail
+  rect(30, 40, 6, 6); // Tail
+
+  // Neck
+  fill(0, 255, 0); // Green for the neck
+  rect(20, 16, 10, 10); // Left neck border
+
+  // Eyes
+  fill(0); // Black eyes
+  rect(18, 6, 4, 4); // Left eye
+  rect(28, 6, 4, 4); // Right eye
+
+  // Mouth
+  fill(0); // Black mouth
+  rect(24, 14, 2, 2); // Mouth rectangle
+
+  // Tongue
+  fill(255, 0, 0); // Red tongue
+  rect(24, 16, 2, 4); // Tongue hanging down
+
+  pop(); // Restore drawing state
+}
+
+// Function to draw high obstacles
+function drawCactus(obstacle) {
+  push(); // Save drawing state
+  translate(obstacle.x, obstacle.y); // Move cactus as high obstacle
+
+  // Main body
+  noStroke();
+  fill(0, 130, 0); // Green color for cactus
+  rect(50, 10, 20, 100); // Main body
+
+  // Left arm
+  rect(40, 40, 10, 10); // Left arm lower
+  rect(35, 30, 10, 20); // Left arm upper
+
+  // Right arm
+  rect(70, 55, 10, 10); // Right arm lower
+  rect(75, 45, 10, 20); // Right arm upper
+
+  // Spikes on cactus
+  fill(0); // Black color for spikes
+  rect(55, 20, 2, 4);
+  rect(65, 25, 2, 4);
+  rect(55, 55, 2, 4);
+  rect(65, 70, 2, 4);
+  rect(50, 90, 2, 4);
+  rect(60, 100, 2, 4);
+  rect(35, 35, 2, 4);
+  rect(40, 45, 2, 4);
+  rect(65, 40, 2, 4);
+  rect(82, 55, 2, 4);
+
+  pop(); // Restore drawing state
 }
 
 // Function to check for collisions
