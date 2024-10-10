@@ -7,6 +7,7 @@ let gravity = 0.8; // Gravity pulling the character down
 let velocityY = 0; // Vertical velocity of the character
 let isJumping = false; // To track if the character is in the air
 let gameOver = false; // To track if the game is over
+let startScreen = true; // Game starts at the start screen
 
 // Define arrays to store multiple obstacles
 let obstaclesLow = [];
@@ -54,6 +55,18 @@ function setup() {
 
 function draw() {
   background(255);
+
+  // Display the start screen
+  if (startScreen) {
+    fill(0);
+    textSize(50);
+    textAlign(CENTER);
+    text("Press Enter to Start", width / 2, height / 2);
+    if (keyIsDown(ENTER)) {
+      startScreen = false; // Exit the start screen when Enter is pressed
+    }
+    return; // Stop the draw loop until the game starts
+  }
 
   if (gameOver) {
     fill(0);
