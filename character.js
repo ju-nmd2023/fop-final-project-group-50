@@ -1,72 +1,124 @@
-class Character {
-  constructor(character) {
-    this.character = character; // Store the character object
+class character {
+  constructor(x, groundY) {
+    this.x = x; // Horizontal position
+    this.y = groundY - 110; // Vertical position (body height adjusted to stand on ground)
   }
 
-  draw() {
+  show(isDucking) {
+    push();
+
+    // Translate to a position even further to the right
+    translate(this.x + 200, this.y); // Moved 50 points more to the right
+
+    if (isDucking) {
+      rotate(4.7);
+    }
+
     // Body
     fill(0, 0, 255); // Blue color for jumpsuit
-    rect(this.character.x - 30, this.character.y, 60, 110); // Main body rectangle
+    rect(-30, 0, 60, 110); // Main body rectangle
 
     // Head
     fill(255, 204, 0); // Skin color
-    ellipse(this.character.x, this.character.y - 30, 60, 60); // Head
+    ellipse(0, -30, 60, 60); // Head
 
     // Hat
     fill(0, 0, 255); // Blue color for hat
-    rect(this.character.x - 30, this.character.y - 60, 60, 20); // Hat base
+    rect(-30, -60, 60, 20); // Hat base
     fill(255); // White for text
     textSize(12);
     textAlign(CENTER, CENTER);
-    text("JÖRGEN", this.character.x, this.character.y - 50); // Name on the hat
+    text("JÖRGEN", 0, -50); // Name on the hat
 
     // Eyes
     fill(0); // Black for eyes
-    ellipse(this.character.x - 10, this.character.y - 30, 10, 10); // Left eye
-    ellipse(this.character.x + 10, this.character.y - 30, 10, 10); // Right eye
+    ellipse(-10, -30, 10, 10); // Left eye
+    ellipse(10, -30, 10, 10); // Right eye
 
     // Tool (Wrench)
     fill(192); // Gray color for wrench
-    rect(this.character.x - 60, this.character.y + 70, 50, 7); // Wrench handle
-    ellipse(this.character.x - 5, this.character.y + 73, 15, 15);
+    rect(-60, 70, 50, 7); // Wrench handle
+    ellipse(-5, 73, 15, 15);
 
     // Arms
     fill(255, 204, 0); // Skin color
-    rect(this.character.x - 50, this.character.y + 5, 20, 70); // Left arm
-    rect(this.character.x + 30, this.character.y + 5, 20, 70); // Right arm
+    rect(-50, 5, 20, 70); // Left arm
+    rect(30, 5, 20, 70); // Right arm
 
     // Hands
-    ellipse(this.character.x - 40, this.character.y + 70, 25, 20); // Left hand (holding wrench)
-    ellipse(this.character.x + 40, this.character.y + 70, 25, 20); // Right hand
+    ellipse(-40, 70, 25, 20); // Left hand (holding wrench)
+    ellipse(40, 70, 25, 20); // Right hand
 
     // Legs
     fill(0, 0, 255); // Blue color for pants
-    rect(this.character.x - 30, this.character.y + 110, 25, 70); // Left leg
-    rect(this.character.x + 5, this.character.y + 110, 25, 70); // Right leg
+    rect(-30, 110, 25, 70); // Left leg
+    rect(5, 110, 25, 70); // Right leg
 
     // Shoes
     fill(255); // White color for shoes
-    ellipse(this.character.x - 20, this.character.y + 180, 30, 15); // Left shoe
-    ellipse(this.character.x + 20, this.character.y + 180, 30, 15); // Right shoe
+    ellipse(-20, 180, 30, 15); // Left shoe
+    ellipse(20, 180, 30, 15); // Right shoe
 
     // Belt
     fill(0); // Black color for belt
-    rect(this.character.x - 30, this.character.y + 90, 60, 10); // Belt
+    rect(-30, 90, 60, 10); // Belt
 
     // Details on suit
     fill(0); // Black color for patches
-    rect(this.character.x - 15, this.character.y + 30, 10, 10); // Patch on left chest
-    rect(this.character.x, this.character.y + 60, 5, 5); // Patch on lower right
+    rect(-15, 30, 10, 10); // Patch on left chest
+    rect(0, 60, 5, 5); // Patch on lower right
 
     // Neck opening (V-shape)
     fill(255, 204, 0); // Skin color for neck
-    triangle(
-      this.character.x - 10,
-      this.character.y,
-      this.character.x + 10,
-      this.character.y,
-      this.character.x,
-      this.character.y + 20
-    );
+    triangle(-10, 0, 10, 0, 0, 20);
+
+    pop(); // Restore to the previous state
   }
+}
+
+
+// character.js
+let spotPositions = []; // Array to hold the positions of the spots
+let spotSizes = []; // Array to hold the sizes of the spots
+let angle = 0; // Variable to control rotation angle
+
+function setupBall() {
+    generateSpots(10); // Generate spots for the ball
+}
+
+function drawBall() {
+    push(); // Save the current drawing state
+    translate(width / 10, height / 2 + 100); // Position the ball behind the player
+    rotate(angle); // Rotate by the current angle
+
+    drawTexturedBall(0, 0, 130); // Draw ball at center with radius 100
+    angle += 0.3; // Increment the rotation angle
+    pop(); // Restore the previous drawing state
+}
+
+function generateSpots(numSpots) {
+    for (let i = 0; i < numSpots; i++) {
+        let spotX = random(-100, 100); // Random x position within the ball
+        let spotY = random(-100, 100); // Random y position within the ball
+        let distance = dist(0, 0, spotX, spotY); // Calculate distance from the center
+
+        // Only save the spot if it's within the radius of the ball
+        if (distance < 100) {
+            spotPositions.push(createVector(spotX, spotY)); // Store position as a vector
+            spotSizes.push(random(10, 20)); // Store random size for the spot
+        }
+    }
+}
+
+function drawTexturedBall(x, y, radius) {
+    fill(150); // Set the color to grey
+    noStroke(); // No outline for the ball
+    ellipse(x, y, radius * 2, radius * 2); // Draw the main ball
+
+    // Draw the pre-generated darker spots
+    fill(100); // Set the spot color to a darker grey
+    for (let i = 0; i < spotPositions.length; i++) {
+        let spot = spotPositions[i];
+        ellipse(spot.x, spot.y, spotSizes[i], spotSizes[i]); // Draw each spot
+    }
 }

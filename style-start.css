@@ -1,0 +1,36 @@
+body {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    background-image: url(pictures/dalvik.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.space-box {
+    height: 80px;
+}
+
+.p-start {
+    height: 100px;
+    width:200px;
+    margin: 0 auto;
+    color: #0068ff;
+    border: solid 5px #0068ff;
+    border-radius: 15px;
+    line-height: 60px;
+    text-align: center;
+}
+
+.p-start:hover {
+    color: white;
+    background-color: #0068ff;
+}
+
+.slogan {
+    background-image: url(pictures/JÖRGAN-SLOGAN.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 900px;
+    height: 150px;
+    margin: 0 auto;
+}
+
