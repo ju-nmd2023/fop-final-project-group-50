@@ -2,7 +2,7 @@ let backgroundImage; // Variable to hold the background image
 
 function preload() {
   // Load the background image
-  backgroundImage = loadImage('bg.jpg'); // Replace with the path to your image
+  backgroundImage = loadImage('https://ju-nmd2023.github.io/fop-final-project-group-50/bg.jpg'); // Replace with the path to your image
 }
 
 function setup() {
