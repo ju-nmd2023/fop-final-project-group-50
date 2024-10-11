@@ -16,7 +16,7 @@ let bgImage; // Declare a variable for the background image
 
 function preload() {
   // Load the background image before the setup function
-  bgImage = loadImage('images/desertSurvivor.jpg'); // Replace with your image path
+  bgImage = loadImage('desertSurvivor.jpg'); // Replace with your image path
 }
 
 function setup() {
