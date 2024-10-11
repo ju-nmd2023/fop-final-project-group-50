@@ -8,7 +8,7 @@ let lastSpeedIncreaseTime = 0; // Time when the speed was last increased
 let score = 0; // Initialize the score variable
 
 function setup() {
-  createCanvas(1400, 820); 
+  createCanvas(1400, 800); 
   player = new Player();   // Create a new player instance
   ground = new Ground();    // Create a new ground instance
   setupBall(); // start rolling the ball
