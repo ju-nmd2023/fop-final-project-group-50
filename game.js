@@ -82,7 +82,7 @@ function draw() {
   }
 
   // Increase score over time
-  score += 10 / frameRate(); // Increase score based on frame rate
+  score += 8 / frameRate(); // Increase score based on frame rate
 
   // Display the score
   fill(0);
