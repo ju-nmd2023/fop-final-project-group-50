@@ -52,7 +52,7 @@ function setup() {
     obstaclesHigh.push({
       x: 1420, // Start each obstacle off the screen
       y: 570, // Higher position for these obstacles
-      width: 30, // Width of the obstacle
+      width: 20, // Width of the obstacle
       height: 100, // Height of the obstacle
       speed: random(5, 10), // Random speed for each obstacle
     });
